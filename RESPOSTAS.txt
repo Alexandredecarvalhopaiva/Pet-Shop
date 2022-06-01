@@ -1,0 +1,40 @@
+CORREÇÃO DOS ERROS:
+
+ERRO:
+
+Ao criar a tabela FUNCIONÁRIOS  na coluna do CPF foi colcado o limete de (11) caracteres do VARCHAR.
+
+CREATE TABLE FUNCIONARIO(
+	ID INT IDENTITY(1,1) NOT NULL,
+	NOME VARCHAR(255) NOT NULL,
+	CPF VARCHAR(11) NOT NULL,
+	SALARIO DECIMAL(6,2) NOT NULL,
+	-- COD ENDERECO
+	TIPO CHAR(1) NULL,
+	N_CONSELHO INT NULL,
+	ESPECIALIDADE VARCHAR(20) NULL,
+	COMISSAO DECIMAL(4,2),
+	CONSTRAINT PK_FUNCIONARIO PRIMARY KEY(ID)
+);
+
+Ao inserir os dados os valores da coluna do CPF tinham mais de 11 caracteres devido as divisões adicionais:"." e "-".
+
+INSERT INTO DBO.FUNCIONARIO VALUES
+('Rosimere Theodoro Manhães', '387.867.049-40', 2500.00, 'V', 696432, 'Geral', NULL),
+('José Da Silva', '798.783.146-65', 5000.00, 'V', 23456789, 'Dermatologia', NULL),
+('Osmar Osvaldo', '111.222.333-04', 2500.00, 'V', 7632198, 'Geral', NULL),
+('Hermenegildo Batista', '552.443.644-76', 3500.00, 'V', 6743856, 'Oncologista', NULL),
+('Joaquim Da Silva Santos', '121.077.452-85', 9785.00, 'V', 675897, 'Oncologista', NULL),
+('Pedro Thomas Monteiro', '567.659.342-35', 3000, 'V', 21423, 'Dermatologia', NULL),
+('João Lima', '777.949.230-34', 1310.17, 'A', NULL, NULL, 7),       
+('Jeniffer Batista', '189.684.123-99', 1580.25, 'A', NULL, NULL, 11),
+('Aline Omar', '400.289.221-88', 1367.80, 'A', NULL, NULL, 8);
+
+
+CORREÇÃO:
+
+Foi necessário ampliar a capacidade de caracteres no CPF:
+
+ALTER TABLE DBO.FUNCIONARIO
+ALTER COLUMN CPF VARCHAR(14);
+
